@@ -1,0 +1,71 @@
+<html ng-app="app.todos">
+    <head>
+        <title>Node/Angular Todos</title>
+
+        <!-- load cdn styles -->
+            <!-- If you’re using our compiled JavaScript, don’t forget to include CDN versions of jQuery and Popper.js before bootstrap 4-->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+            <!-- bootstrap -->
+        <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+            <!-- font-awesome -->
+        <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <!-- angularjs xeditable css-->
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-xeditable/0.10.1/css/xeditable.min.css">
+
+        <!-- load styles.css -->
+        <link rel="stylesheet" href="assets/css/style.css">
+
+        <!-- load cdn scripts-->
+            <!-- load bootstrap js-->
+        <script src="//stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+            <!-- AngularJS -->
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+            <!-- angularjs xeditable js-->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-xeditable/0.10.1/js/xeditable.min.js"></script>
+
+        <!-- load app js của angularjs cho file này-->
+        <script src="/assets/js/main/app.js"></script>
+        <script src="/assets/js/main/services/svTodos.js"></script>
+
+    </head>
+
+    <body ng-controller="todoController">
+        <div class="container">
+
+            <div class="jumbotron text-center">
+                <h1>{{ appName }} <span class="badge badge-primary"> {{ todos.length }} </span></h1>
+            </div>
+
+            <div id="todo-list" class="row">
+                <div class="col-sm-6 offset-sm-3">
+                    <div class="checkbox" ng-repeat="todo in todos">
+                        
+                        <input type="checkbox" ng-model="todo.isDone" ng-change="updateTodo(todo)"> 
+                        <a href="" ng-click="deleteTodo(todo)"><i class="fa fa-remove"></i></a>
+                        <a href="" ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visiable"><i class="fa fa-edit"></i></a>
+                        <span ng-class="{ strike: todo.isDone}" editable-text="todo.text" e-form="textBtnForm" onaftersave="updateTodo(todo)"> {{ todo.text }} </span>
+                    </div>
+                    <p class="text-center" ng-show="loading">
+                        <span class="fa fa-spinner fa-spin fa-3x"></span>
+                    </p>
+                </div>
+            </div>
+
+            <div id="todo-form" class="row">
+                <div class="col-sm-8 offset-sm-2 text-center">
+                    <form>
+                        <div class="fora-group">
+                            <input type="text" ng-model="formData.text" class="form-control input-lg text-center" placeholder="What do you want to do?">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-lg" ng-disabled="!formData.text" ng-click="createTodo()" >Add</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        
+        
+    </body>
+</html>
